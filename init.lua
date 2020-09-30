@@ -407,8 +407,9 @@ local function getNextWindow(windows, window)
     windows = hs.application.find(windows):allWindows()
   end
 
-  windows = hs.fnutils.filter(windows, hs.window.isStandard)
-  windows = hs.fnutils.filter(windows, hs.window.isVisible)
+  windows = hs.fnutils.filter(windows, function(win)
+    return win:isStandard() and win:isVisible()
+  end)
 
   -- need to sort by ID, since the default order of the window
   -- isn't usable when we change the mainWindow
